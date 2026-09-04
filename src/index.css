@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef1f7;
+  --color-border: #dfe3ec;
+  --color-text: #131722;
+  --color-muted: #626b80;
+  --color-accent: #3b6ef5;
+  --color-accent-soft: #e5ecff;
+  --color-good: #16a34a;
+  --color-warn: #d97706;
+  --color-bad: #dc2626;
+  --color-night: #6d5bd0;
+}
+
+/* Tmavý režim řídí atribut na <html>, ne media query — uživatel si ho může vynutit. */
+:root[data-theme='dark'] {
+  --color-bg: #0b1020;
+  --color-surface: #151b2e;
+  --color-surface-2: #1e2740;
+  --color-border: #2a3450;
+  --color-text: #e9edf7;
+  --color-muted: #96a0bb;
+  --color-accent: #6d93ff;
+  --color-accent-soft: #1e2b52;
+  --color-good: #4ade80;
+  --color-warn: #fbbf24;
+  --color-bad: #f87171;
+  --color-night: #a78bfa;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+/* Bezpečné zóny kvůli výřezu a gesture baru na telefonech. */
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+input, select, textarea, button {
+  font: inherit;
+  color: inherit;
+}
+
+/* iOS zoomuje stránku u polí menších než 16px. */
+input, select, textarea {
+  font-size: max(16px, 1rem);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 6px; }
