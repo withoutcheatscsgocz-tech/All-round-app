@@ -10,3 +10,5 @@ import './music';
 import './watch';
 import './notes';
 import './expenses';
+import './weather';
+import './calendar';
