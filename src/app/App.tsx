@@ -4,6 +4,8 @@ import { Layout } from './Layout';
 import { SettingsPage } from './SettingsPage';
 import { UpdatePrompt } from './UpdatePrompt';
 import { getModules } from '../modules/registry';
+import { PlayerProvider } from '../modules/music/player';
+import { MiniPlayer } from '../modules/music/MiniPlayer';
 import '../modules';
 
 function ModuleRoutes() {
@@ -22,16 +24,19 @@ export function App() {
   const first = getModules()[0];
   return (
     <SettingsProvider>
-      <HashRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            {ModuleRoutes()}
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="*" element={<Navigate to={first ? `/${first.path}` : '/settings'} replace />} />
-          </Route>
-        </Routes>
-        <UpdatePrompt />
-      </HashRouter>
+      <PlayerProvider>
+        <HashRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              {ModuleRoutes()}
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="*" element={<Navigate to={first ? `/${first.path}` : '/settings'} replace />} />
+            </Route>
+          </Routes>
+          <MiniPlayer />
+          <UpdatePrompt />
+        </HashRouter>
+      </PlayerProvider>
     </SettingsProvider>
   );
 }

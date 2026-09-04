@@ -6,3 +6,4 @@ import './dashboard';
 import './shifts';
 import './transit';
 import './recipes';
+import './music';
