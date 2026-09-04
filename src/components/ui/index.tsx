@@ -44,9 +44,10 @@ export function Card({
   );
 }
 
-export function Input({ className = '', ...props }: InputHTMLAttributes<HTMLInputElement>) {
+export function Input({ className = '', type = 'text', ...props }: InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
+      type={type}
       {...props}
       className={`w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5 outline-none transition focus:border-[var(--color-accent)] ${className}`}
     />
@@ -142,7 +143,12 @@ export function Sheet({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative max-h-[90vh] w-full overflow-y-auto rounded-t-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 pb-safe sm:max-w-lg sm:rounded-3xl">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        className="relative max-h-[90vh] w-full overflow-y-auto rounded-t-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 pb-safe sm:max-w-lg sm:rounded-3xl"
+      >
         <div className="mb-4 flex items-center justify-between gap-4">
           <h2 className="text-lg font-semibold">{title}</h2>
           <button onClick={onClose} className="text-2xl leading-none text-[var(--color-muted)]" aria-label="Zavřít">

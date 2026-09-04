@@ -3,3 +3,4 @@
  * s registerModule(...) a jeden import sem.
  */
 import './dashboard';
+import './shifts';
