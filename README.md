@@ -58,7 +58,40 @@ Appka si vystačí sama, ale některé moduly umí víc, když jim dáš příst
 | YouTube | vlastní playlisty a odběry | Google Client ID |
 | TMDB | filmy a seriály, kde zrovna běží | free API klíč |
 
-Postup nastavení je popsaný přímo v appce u každé služby.
+Postup nastavení je popsaný krok za krokem přímo v appce u každé služby.
+
+### Spotify
+
+Appka používá **Authorization Code s PKCE**, takže client secret neexistuje
+a nic se neposílá přes žádný server. Na developer.spotify.com si založíš
+aplikaci, do *Redirect URIs* vložíš adresu, kterou ti appka ukáže
+(v produkci `https://…github.io/All-round-app/`, při vývoji
+`http://127.0.0.1:5173/` — Spotify od února 2025 `localhost` nebere),
+zaškrtneš Web API i Web Playback SDK a zkopíruješ Client ID.
+
+Co pak funguje:
+
+- **všude včetně telefonu**: vlastní playlisty, oblíbené skladby, vyhledávání
+  v celém katalogu a **ovládání přehrávání přes Spotify Connect** — z appky
+  pustíš hudbu do oficiální Spotify aplikace v tom samém telefonu nebo do
+  jiného zařízení,
+- **na počítači navíc**: appka se sama stane přehrávacím zařízením a hudba
+  hraje přímo v ní. Na mobilních prohlížečích tohle Spotify nepodporuje,
+  proto tam zůstává režim dálkového ovládání.
+
+Ovládání přehrávání vyžaduje **Spotify Premium**.
+
+### YouTube
+
+Bez jakéhokoli nastavování funguje vkládání odkazů — nalepíš odkaz na video
+nebo playlist a hraje ve vloženém přehrávači. Pro **vlastní playlisty,
+odběry a vyhledávání** si v Google Cloud založíš projekt, zapneš YouTube
+Data API v3 a vytvoříš OAuth Client ID; appka pak používá Google Identity
+Services, kde taky žádný client secret není potřeba, jen povolený
+JavaScript origin.
+
+Přehrávání jde vždy přes oficiální přehrávač YouTube — vlastní audio-only
+přehrávač ani stahování jejich podmínky nedovolují.
 
 ## Co appka umí a co ne
 

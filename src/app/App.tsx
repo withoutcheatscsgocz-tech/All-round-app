@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { SettingsProvider } from './SettingsProvider';
 import { Layout } from './Layout';
@@ -6,6 +7,7 @@ import { UpdatePrompt } from './UpdatePrompt';
 import { getModules } from '../modules/registry';
 import { PlayerProvider } from '../modules/music/player';
 import { MiniPlayer } from '../modules/music/MiniPlayer';
+import { handleRedirectCallback } from '../modules/music/spotify/auth';
 import '../modules';
 
 function ModuleRoutes() {
@@ -22,6 +24,17 @@ function ModuleRoutes() {
 
 export function App() {
   const first = getModules()[0];
+  const [authDone, setAuthDone] = useState(false);
+
+  // Návrat z přihlášení ke Spotify přijde jako ?code=… v adrese.
+  useEffect(() => {
+    handleRedirectCallback()
+      .catch(() => undefined)
+      .finally(() => setAuthDone(true));
+  }, []);
+
+  if (!authDone) return null;
+
   return (
     <SettingsProvider>
       <PlayerProvider>

@@ -6,6 +6,8 @@ import { Button, Card, EmptyState, Field, Input, Section, Sheet } from '../../co
 import { db, requestPersistentStorage } from '../../db/db';
 import { addTrackFile, seedCzechRadios, shuffled } from './data';
 import { formatSeconds, usePlayer } from './player';
+import { SpotifyPanel } from './spotify/SpotifyPanel';
+import { YouTubePanel } from './youtube/YouTubePanel';
 import type { RadioStation } from '../../db/types';
 
 function TrackList() {
@@ -203,13 +205,40 @@ function RadioEditor({ onClose }: { onClose: () => void }) {
   );
 }
 
+type MusicTab = 'mine' | 'radio' | 'spotify' | 'youtube';
+
 export function MusicPage() {
   const { t } = useI18n();
   const player = usePlayer();
+  const [tab, setTab] = useState<MusicTab>('mine');
+
+  const tabs: { id: MusicTab; label: string; icon: string }[] = [
+    { id: 'mine', label: t('music.myMusic'), icon: '🎵' },
+    { id: 'radio', label: t('music.radio'), icon: '📻' },
+    { id: 'spotify', label: t('spotify.title'), icon: '🟢' },
+    { id: 'youtube', label: t('youtube.title'), icon: '▶️' },
+  ];
 
   return (
     <>
       <PageHeader title={t('music.title')} />
+
+      <div className="mb-4 grid grid-cols-4 gap-1.5">
+        {tabs.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setTab(item.id)}
+            className={`flex flex-col items-center gap-0.5 rounded-xl px-1 py-2 text-[11px] transition ${
+              tab === item.id
+                ? 'bg-[var(--color-accent)] text-white'
+                : 'bg-[var(--color-surface-2)] text-[var(--color-muted)]'
+            }`}
+          >
+            <span className="text-base leading-none">{item.icon}</span>
+            <span className="truncate">{item.label}</span>
+          </button>
+        ))}
+      </div>
 
       {player.error && (
         <p className="mb-4 rounded-xl bg-[var(--color-bad)]/10 p-3 text-sm text-[var(--color-bad)]">
@@ -217,8 +246,10 @@ export function MusicPage() {
         </p>
       )}
 
-      <TrackList />
-      <RadioList />
+      {tab === 'mine' && <TrackList />}
+      {tab === 'radio' && <RadioList />}
+      {tab === 'spotify' && <SpotifyPanel />}
+      {tab === 'youtube' && <YouTubePanel />}
     </>
   );
 }
