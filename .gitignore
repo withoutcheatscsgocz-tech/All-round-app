@@ -5,3 +5,13 @@ dist-ssr
 .DS_Store
 .vite
 coverage
+
+# Android build a podpisový klíč — klíč nikdy do gitu
+android/keystore.properties
+android/.gradle
+android/app/build
+android/build
+android/local.properties
+*.keystore
+*.jks
+assets/

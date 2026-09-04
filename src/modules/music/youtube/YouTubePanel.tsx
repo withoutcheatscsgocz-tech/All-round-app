@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useI18n } from '../../../i18n';
 import { Button, Card, EmptyState, Field, Input, Section, Sheet, Spinner } from '../../../components/ui';
 import { db } from '../../../db/db';
+import { isNativeApp } from '../../../lib/platform';
 import { useAsync, useDebounced } from '../../../lib/useAsync';
 import { embedUrl, parseYouTubeUrl, thumbnailUrl, type YouTubeRef } from './parse';
 import { getYouTubeClientId, getStoredToken, requestToken, setYouTubeClientId, youtubeLogout } from './auth';
@@ -300,7 +301,9 @@ export function YouTubePanel() {
           <AddLink onAdded={setPlaying} />
 
           <div className="mt-3">
-            {clientId ? (
+            {isNativeApp() ? (
+              <p className="text-xs text-[var(--color-muted)]">{t('youtube.nativeNote')}</p>
+            ) : clientId ? (
               <Button className="w-full" onClick={() => void connect()}>
                 🔑 {t('youtube.connect')}
               </Button>

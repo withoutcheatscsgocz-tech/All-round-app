@@ -1,0 +1,49 @@
+name: Postavit APK
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build:app
+      - run: npx cap sync android
+
+      # Podpis stejným klíčem jako první vydaná verze — jen tak se nová verze
+      # nainstaluje přes tu starou a nepřijde se o data. Bez těchhle secrets
+      # se APK podepíše debug klíčem a nainstalovat půjde jen po odinstalaci.
+      - name: Připravit podpisový klíč
+        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/release.keystore"
+          cat > android/keystore.properties <<PROPS
+          storeFile=$RUNNER_TEMP/release.keystore
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          keyPassword=${{ secrets.KEYSTORE_PASSWORD }}
+          PROPS
+
+      - name: Postavit APK
+        run: cd android && ./gradlew assembleRelease --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: all-round-app-apk
+          path: android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error

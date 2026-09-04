@@ -1,3 +1,5 @@
+import { isNativeApp, NATIVE_REDIRECT } from './platform';
+
 /**
  * PKCE (RFC 7636) pro přihlášení bez serveru. Klientská aplikace nemůže
  * bezpečně držet client secret, proto se místo něj posílá jednorázová
@@ -44,10 +46,14 @@ export function buildAuthUrl(
 }
 
 /**
- * Návratová adresa aplikace. Používá se HashRouter, takže se poskytovateli
- * dává čistá cesta bez hashe — parametry se pak čtou z query stringu.
+ * Návratová adresa aplikace. Ve webu se používá HashRouter, takže se
+ * poskytovateli dává čistá cesta bez hashe a parametry se čtou z query
+ * stringu. V APK je origin `https://localhost`, který poskytovatelé jako
+ * redirect URI neberou — tam se proto vrací vlastní schéma a odpověď
+ * odchytává systém.
  */
 export function redirectUri(): string {
+  if (isNativeApp()) return NATIVE_REDIRECT;
   return `${location.origin}${location.pathname}`;
 }
 

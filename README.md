@@ -23,6 +23,61 @@ npm run preview   # náhled produkčního buildu
 npm run smoke     # projde všechny obrazovky v prohlížeči (po npm run preview)
 ```
 
+## Android APK
+
+Kromě webové verze jde appka postavit jako **APK a nainstalovat do telefonu**.
+Všechno je zabalené uvnitř — nepotřebuje internet ani zapnuté GitHub Pages.
+
+```bash
+npm run apk     # postaví web v režimu app, sesynchronizuje a spustí Gradle
+```
+
+Výsledek: `android/app/build/outputs/apk/release/app-release.apk`.
+
+Pro build je potřeba Java 21 a Android SDK (`platforms;android-35`,
+`build-tools;35.0.0`), cesta k němu v `android/local.properties`.
+
+### Instalace do telefonu
+
+Přenes APK do telefonu a otevři ho. Android se zeptá, jestli povolit
+instalaci z neznámých zdrojů — je to proto, že appka nejde přes Obchod Play,
+ne proto, že by na ní bylo něco špatně.
+
+### Pozor: web a APK mají každý svoje data
+
+APK a stránka v prohlížeči jsou z pohledu Androidu dvě různé aplikace, takže
+**si nesdílejí databázi**. Vyber si jedno, kde budeš appku doopravdy používat.
+Přenést data mezi nimi jde přes **Nastavení → Data a záloha** (export z jedné,
+import do druhé).
+
+### Podpisový klíč
+
+Release APK se podepisuje klíčem z `android/keystore.properties` (v gitu není).
+Ten klíč **si schovej** — novou verzi jde nainstalovat přes tu starou jen když
+je podepsaná stejným klíčem. Jinak se musí appka odinstalovat a přijdeš o data.
+
+Pro stavbu na GitHubu přidej v repozitáři *Settings → Secrets and variables →
+Actions*:
+
+| Secret | Obsah |
+|---|---|
+| `KEYSTORE_BASE64` | keystore zakódovaný `base64 -w0 all-round.keystore` |
+| `KEYSTORE_PASSWORD` | heslo ke keystoru |
+| `KEY_ALIAS` | `all-round` |
+
+Workflow `.github/workflows/apk.yml` pak při každém pushi postaví APK
+a přiloží ho jako artefakt ke stažení.
+
+### Co v APK nefunguje
+
+**Přihlášení k YouTube přes Google.** Google ho ve vestavěném prohlížeči
+zakazuje. Ukládání odkazů na videa a playlisty funguje normálně dál, jen si
+tam neuvidíš svoje playlisty automaticky — na to je webová verze.
+
+Spotify funguje i v APK, jen se do něj vrací přes vlastní adresu
+`cz.allround.app://callback` — tu si přidej v Spotify Dashboardu k těm
+webovým. Appka ti ji ukáže přímo v průvodci nastavením.
+
 ## Nasazení na GitHub Pages
 
 Push do `main` nebo do větve `claude/**` spustí workflow, který appku postaví

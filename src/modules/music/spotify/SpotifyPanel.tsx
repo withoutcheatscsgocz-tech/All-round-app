@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useI18n } from '../../../i18n';
 import { Button, Card, EmptyState, Field, Input, Pill, Section, Spinner } from '../../../components/ui';
 import { redirectUri } from '../../../lib/pkce';
+import { isNativeApp } from '../../../lib/platform';
 import { useAsync, useDebounced } from '../../../lib/useAsync';
 import { beginLogin, getClientId, getTokens, logout, setClientId } from './auth';
 import * as api from './api';
@@ -38,6 +39,9 @@ function Setup({ onSaved }: { onSaved: () => void }) {
         <li>
           {t('spotify.setupStep3')}
           <CopyRow value={redirectUri()} />
+          {isNativeApp() && (
+            <span className="mt-1 block text-xs">{t('spotify.setupNative')}</span>
+          )}
         </li>
         <li>{t('spotify.setupStep4')}</li>
         <li>{t('spotify.setupStep5')}</li>

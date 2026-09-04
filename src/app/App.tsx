@@ -8,6 +8,7 @@ import { getModules } from '../modules/registry';
 import { PlayerProvider } from '../modules/music/player';
 import { MiniPlayer } from '../modules/music/MiniPlayer';
 import { handleRedirectCallback } from '../modules/music/spotify/auth';
+import { isNativeApp } from '../lib/platform';
 import '../modules';
 
 function ModuleRoutes() {
@@ -26,11 +27,28 @@ export function App() {
   const first = getModules()[0];
   const [authDone, setAuthDone] = useState(false);
 
-  // Návrat z přihlášení ke Spotify přijde jako ?code=… v adrese.
+  // Ve webu přijde návrat z přihlášení ke Spotify jako ?code=… v adrese.
   useEffect(() => {
     handleRedirectCallback()
       .catch(() => undefined)
       .finally(() => setAuthDone(true));
+  }, []);
+
+  // V APK adresa na stránku nedorazí — systém ji předá jako otevření odkazu
+  // s vlastním schématem, takže se musí odchytnout tady.
+  useEffect(() => {
+    if (!isNativeApp()) return;
+    let remove: (() => void) | undefined;
+
+    void import('@capacitor/app').then(({ App: CapacitorApp }) =>
+      CapacitorApp.addListener('appUrlOpen', ({ url }) => {
+        void handleRedirectCallback(url).catch(() => undefined);
+      }).then((handle) => {
+        remove = () => void handle.remove();
+      }),
+    );
+
+    return () => remove?.();
   }, []);
 
   if (!authDone) return null;

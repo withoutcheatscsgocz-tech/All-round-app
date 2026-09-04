@@ -10,9 +10,14 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "tsc -b --noEmit false --emitDeclarationOnly false --noEmit",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "build:app": "tsc -b && vite build --mode app",
+    "apk": "npm run build:app && npx cap sync android && cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.1",
     "dexie": "^4.0.11",
     "dexie-react-hooks": "^1.1.7",
     "react": "^19.1.0",
@@ -20,6 +25,8 @@
     "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.1",
     "@tailwindcss/vite": "^4.1.7",
     "@types/node": "^26.4.1",
     "@types/react": "^19.1.5",

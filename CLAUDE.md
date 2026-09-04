@@ -35,10 +35,35 @@ PKCE, takže client secret není potřeba.
 ## Příkazy
 
 ```bash
-npm run dev      # vývoj
-npm run test     # vitest, čistá logika (mzdy, svátky, parsování)
-npm run build    # typová kontrola + produkční build
+npm run dev       # vývoj
+npm run test      # vitest, čistá logika (mzdy, svátky, parsování)
+npm run build     # web pro GitHub Pages (base /All-round-app/, se service workerem)
+npm run build:app # tentýž web pro APK (relativní base, bez service workeru)
+npm run apk       # build:app + cap sync + Gradle assembleRelease
 ```
+
+## Android APK
+
+Stejný kód běží ve dvou režimech; `vite.config.ts` je funkce podle `mode`:
+
+- výchozí — GitHub Pages, `base: '/All-round-app/'`, `VitePWA` zapnutá,
+- `--mode app` — obsah do APK, `base: './'`, PWA vypnutá a virtuální modul
+  `virtual:pwa-register/react` nahrazený `src/app/pwa-register.native.ts`
+  (jinak build spadne na nevyřešeném importu).
+
+Co je v APK jinak (`src/lib/platform.ts` → `isNativeApp()`):
+
+- **redirect URI** (`src/lib/pkce.ts`) je `cz.allround.app://callback` místo
+  webové adresy — origin `https://localhost` Spotify nebere. Přihlašovací
+  stránka se proto otevírá v systémovém prohlížeči a odpověď chytá
+  `appUrlOpen` v `src/app/App.tsx`; `handleRedirectCallback()` umí vzít
+  adresu parametrem.
+- **YouTube přes Google se nepřihlásí** (GIS nefunguje ve WebView), tlačítko
+  se skrývá a ukáže se poznámka.
+
+Podpisový klíč ani `android/keystore.properties` nejsou v gitu. Novou verzi
+je nutné podepsat **stejným klíčem**, jinak se nenainstaluje přes starou
+a uživatel přijde o data.
 
 Čistá logika (výpočty mezd, svátky, přepočty porcí, parsování odpovědí API)
 patří do samostatných souborů s testy, ne do komponent.

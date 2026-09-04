@@ -2,6 +2,7 @@ import { getSetting, setSetting, db } from '../../../db/db';
 import {
   createPkcePair, isExpired, redirectUri, tokenSetFromResponse, type TokenSet,
 } from '../../../lib/pkce';
+import { isNativeApp } from '../../../lib/platform';
 
 const AUTHORIZE_URL = 'https://accounts.spotify.com/authorize';
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
@@ -44,7 +45,13 @@ export async function logout(): Promise<void> {
   await db.settings.delete(TOKENS_KEY);
 }
 
-/** Odešle uživatele na Spotify. Verifier zůstane v databázi na návrat zpět. */
+/**
+ * Odešle uživatele na Spotify. Verifier zůstane v databázi na návrat zpět.
+ *
+ * V APK se přihlašovací stránka musí otevřít v systémovém prohlížeči —
+ * kdyby se načetla uvnitř aplikace, WebView by si pak neporadil
+ * s přesměrováním na vlastní schéma.
+ */
 export async function beginLogin(): Promise<void> {
   const clientId = await getClientId();
   if (!clientId) throw new Error('missing-client-id');
@@ -63,7 +70,8 @@ export async function beginLogin(): Promise<void> {
   url.searchParams.set('scope', SCOPES);
   url.searchParams.set('state', state);
 
-  location.assign(url.toString());
+  if (isNativeApp()) window.open(url.toString(), '_blank');
+  else location.assign(url.toString());
 }
 
 async function exchange(body: Record<string, string>): Promise<TokenSet> {
@@ -84,11 +92,15 @@ async function exchange(body: Record<string, string>): Promise<TokenSet> {
 }
 
 /**
- * Zpracuje návrat z přihlášení. Volá se při startu aplikace; když v adrese
- * žádný kód není, jen se nic nestane.
+ * Zpracuje návrat z přihlášení. Ve webu se volá při startu aplikace a čte
+ * adresu; v APK dostane adresu z `appUrlOpen`, protože ta na stránku nikdy
+ * nedorazí. Když v adrese žádný kód není, jen se nic nestane.
  */
-export async function handleRedirectCallback(): Promise<boolean> {
-  const params = new URLSearchParams(location.search);
+export async function handleRedirectCallback(callbackUrl?: string): Promise<boolean> {
+  const search = callbackUrl
+    ? new URL(callbackUrl).search
+    : location.search;
+  const params = new URLSearchParams(search);
   const code = params.get('code');
   const returnedState = params.get('state');
   if (!code) return false;
@@ -97,8 +109,9 @@ export async function handleRedirectCallback(): Promise<boolean> {
   const verifier = await getSetting<string>(VERIFIER_KEY, '');
   const expectedState = await getSetting<string>(STATE_KEY, '');
 
-  // Adresu vyčistíme vždycky, ať se kód nezkouší použít podruhé.
-  history.replaceState(null, '', redirectUri() + location.hash);
+  // Adresu vyčistíme, ať se kód nezkouší použít podruhé. V APK ale žádná
+  // adresa s kódem není, takže tam není co uklízet.
+  if (!callbackUrl) history.replaceState(null, '', redirectUri() + location.hash);
   await db.settings.bulkDelete([VERIFIER_KEY, STATE_KEY]);
 
   if (!clientId || !verifier) return false;
