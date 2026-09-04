@@ -42,3 +42,18 @@ npm run build    # typová kontrola + produkční build
 
 Čistá logika (výpočty mezd, svátky, přepočty porcí, parsování odpovědí API)
 patří do samostatných souborů s testy, ne do komponent.
+
+## Testování v prohlížeči
+
+`scripts/*.mjs` jsou Playwright skripty (Chromium je předinstalovaný v
+`/opt/pw-browsers/`). Spouští se proti `npm run preview` na
+`http://127.0.0.1:4173/All-round-app/`.
+
+Dvě věci, o které se člověk v tomhle kontejneru spolehlivě praští:
+
+- **Prohlížeč nesmí ven.** Agent proxy resetuje spojení navazovaná
+  z Chromia, i když curl přes `$HTTPS_PROXY` funguje. Volání cizích API se
+  proto v testech odchytávají přes `page.route()` a odpovídá se
+  fixtures se skutečnými odpověďmi (`src/modules/*/__fixtures__/`).
+- **Service worker odchytí fetch dřív než `page.route()`.** Kontext se musí
+  vytvořit s `serviceWorkers: 'block'`, jinak interception nic nezachytí.

@@ -86,3 +86,19 @@ export function formatDuration(minutes: number, locale = 'cs'): string {
   if (m === 0) return locale === 'cs' ? `${h} h` : `${h} h`;
   return `${h} h ${m} min`;
 }
+
+/**
+ * České skloňování po číslovce: 1 zastávka, 2–4 zastávky, 5+ zastávek.
+ * V angličtině stačí jednotné a množné číslo.
+ */
+export function plural(
+  count: number,
+  forms: { one: string; few: string; many: string },
+  lang: 'cs' | 'en' = 'cs',
+): string {
+  if (lang === 'en') return count === 1 ? forms.one : forms.many;
+  const n = Math.abs(count);
+  if (n === 1) return forms.one;
+  if (n >= 2 && n <= 4) return forms.few;
+  return forms.many;
+}

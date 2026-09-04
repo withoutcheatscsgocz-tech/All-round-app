@@ -1,0 +1,450 @@
+[
+ {
+  "type": "STOP",
+  "tokens": [
+   [
+    0.0,
+    4.0
+   ],
+   [
+    5.0,
+    7.0
+   ]
+  ],
+  "name": "Brno,Hlavní",
+  "id": "cz-JDF-merged_JDFS-8122",
+  "lat": 49.216858,
+  "lon": 16.56028,
+  "country": "CZ",
+  "tz": "Europe/Prague",
+  "areas": [
+   {
+    "name": "Česko",
+    "adminLevel": 2.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Jihomoravský kraj",
+    "adminLevel": 4.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "okres Brno-město",
+    "adminLevel": 5.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO ORP Brno",
+    "adminLevel": 6.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO POÚ Brno",
+    "adminLevel": 7.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Brno",
+    "adminLevel": 8.0,
+    "matched": false,
+    "unique": true,
+    "default": true
+   },
+   {
+    "name": "Brno-Komín",
+    "adminLevel": 9.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   }
+  ],
+  "score": -21.100000381469727,
+  "modes": [],
+  "importance": 0.0
+ },
+ {
+  "type": "STOP",
+  "tokens": [
+   [
+    0.0,
+    4.0
+   ],
+   [
+    5.0,
+    7.0
+   ]
+  ],
+  "name": "Hlavní nádraží",
+  "id": "cz-IDS-JMK_U1146N364",
+  "lat": 49.191254,
+  "lon": 16.612370000000002,
+  "country": "CZ",
+  "tz": "Europe/Prague",
+  "areas": [
+   {
+    "name": "Česko",
+    "adminLevel": 2.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Jihomoravský kraj",
+    "adminLevel": 4.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "okres Brno-město",
+    "adminLevel": 5.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO ORP Brno",
+    "adminLevel": 6.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO POÚ Brno",
+    "adminLevel": 7.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Brno",
+    "adminLevel": 8.0,
+    "matched": true,
+    "unique": true,
+    "default": true
+   },
+   {
+    "name": "Brno-střed",
+    "adminLevel": 9.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   }
+  ],
+  "score": -20.978574752807617,
+  "modes": [
+   "REGIONAL_RAIL",
+   "TRAM",
+   "BUS"
+  ],
+  "importance": 0.004096261691302061
+ },
+ {
+  "type": "STOP",
+  "tokens": [
+   [
+    0.0,
+    4.0
+   ],
+   [
+    5.0,
+    7.0
+   ]
+  ],
+  "name": "Hlavní",
+  "id": "cz-IDS-JMK_U1143N2860",
+  "lat": 49.21699,
+  "lon": 16.560351999999998,
+  "country": "CZ",
+  "tz": "Europe/Prague",
+  "areas": [
+   {
+    "name": "Česko",
+    "adminLevel": 2.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Jihomoravský kraj",
+    "adminLevel": 4.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "okres Brno-město",
+    "adminLevel": 5.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO ORP Brno",
+    "adminLevel": 6.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO POÚ Brno",
+    "adminLevel": 7.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Brno",
+    "adminLevel": 8.0,
+    "matched": true,
+    "unique": true,
+    "default": true
+   },
+   {
+    "name": "Brno-Komín",
+    "adminLevel": 9.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   }
+  ],
+  "score": -20.676000595092773,
+  "modes": [
+   "BUS"
+  ],
+  "importance": 7.986975106177852e-05
+ },
+ {
+  "type": "STOP",
+  "tokens": [
+   [
+    0.0,
+    4.0
+   ],
+   [
+    5.0,
+    7.0
+   ]
+  ],
+  "name": "Brno hlavní nádraží",
+  "id": "at-Railway-Current-Reference-Data-2026_cz:0:5433295:0:1",
+  "lat": 49.19037000000001,
+  "lon": 16.612337,
+  "level": 0.0,
+  "country": "CZ",
+  "tz": "Europe/Prague",
+  "areas": [
+   {
+    "name": "Česko",
+    "adminLevel": 2.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Jihomoravský kraj",
+    "adminLevel": 4.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "okres Brno-město",
+    "adminLevel": 5.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO ORP Brno",
+    "adminLevel": 6.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO POÚ Brno",
+    "adminLevel": 7.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Brno",
+    "adminLevel": 8.0,
+    "matched": false,
+    "unique": true,
+    "default": true
+   },
+   {
+    "name": "Brno-střed",
+    "adminLevel": 9.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   }
+  ],
+  "score": -20.52886199951172,
+  "modes": [
+   "HIGHSPEED_RAIL",
+   "NIGHT_RAIL",
+   "REGIONAL_RAIL"
+  ],
+  "importance": 0.000878721009939909
+ },
+ {
+  "type": "STOP",
+  "tokens": [
+   [
+    0.0,
+    4.0
+   ],
+   [
+    5.0,
+    7.0
+   ]
+  ],
+  "name": "Brno,Hlavní nádraží",
+  "id": "cz-JDF-merged_JDFS-8134",
+  "lat": 49.191753000000006,
+  "lon": 16.613052000000003,
+  "country": "CZ",
+  "tz": "Europe/Prague",
+  "areas": [
+   {
+    "name": "Česko",
+    "adminLevel": 2.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Jihomoravský kraj",
+    "adminLevel": 4.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "okres Brno-město",
+    "adminLevel": 5.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO ORP Brno",
+    "adminLevel": 6.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO POÚ Brno",
+    "adminLevel": 7.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Brno",
+    "adminLevel": 8.0,
+    "matched": false,
+    "unique": true,
+    "default": true
+   },
+   {
+    "name": "Brno-střed",
+    "adminLevel": 9.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   }
+  ],
+  "score": -19.350000381469727,
+  "modes": [],
+  "importance": 0.0
+ },
+ {
+  "type": "PLACE",
+  "category": "liftgate_7",
+  "tokens": [
+   [
+    0.0,
+    4.0
+   ],
+   [
+    5.0,
+    7.0
+   ]
+  ],
+  "name": "hlavní vstup",
+  "id": "node/[364065737]",
+  "lat": 49.1754414,
+  "lon": 16.5696107,
+  "country": "CZ",
+  "tz": "Europe/Prague",
+  "areas": [
+   {
+    "name": "Česko",
+    "adminLevel": 2.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Jihomoravský kraj",
+    "adminLevel": 4.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "okres Brno-město",
+    "adminLevel": 5.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO ORP Brno",
+    "adminLevel": 6.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "SO POÚ Brno",
+    "adminLevel": 7.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   },
+   {
+    "name": "Brno",
+    "adminLevel": 8.0,
+    "matched": true,
+    "unique": true,
+    "default": true
+   },
+   {
+    "name": "Brno-Starý Lískovec",
+    "adminLevel": 9.0,
+    "matched": false,
+    "unique": false,
+    "default": false
+   }
+  ],
+  "score": -17.826000213623047
+ }
+]

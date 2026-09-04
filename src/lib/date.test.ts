@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   addDays, addMonths, daysInMonth, isWeekend, minutesToTime,
-  monthDays, timeToMinutes, weekdayIndex,
+  monthDays, plural, timeToMinutes, weekdayIndex,
 } from './date';
 
 describe('práce s datem', () => {
@@ -41,5 +41,23 @@ describe('práce s datem', () => {
     expect(timeToMinutes('22:30')).toBe(1350);
     expect(minutesToTime(360)).toBe('06:00');
     expect(minutesToTime(1500)).toBe('01:00'); // přeteklo přes půlnoc
+  });
+});
+
+describe('skloňování', () => {
+  it('česky rozlišuje 1 / 2–4 / 5+', () => {
+    const forms = { one: 'zastávka', few: 'zastávky', many: 'zastávek' };
+    expect(plural(1, forms)).toBe('zastávka');
+    expect(plural(2, forms)).toBe('zastávky');
+    expect(plural(4, forms)).toBe('zastávky');
+    expect(plural(5, forms)).toBe('zastávek');
+    expect(plural(0, forms)).toBe('zastávek');
+    expect(plural(21, forms)).toBe('zastávek');
+  });
+
+  it('anglicky stačí jednotné a množné číslo', () => {
+    const forms = { one: 'stop', few: 'stops', many: 'stops' };
+    expect(plural(1, forms, 'en')).toBe('stop');
+    expect(plural(3, forms, 'en')).toBe('stops');
   });
 });

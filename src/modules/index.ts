@@ -4,3 +4,4 @@
  */
 import './dashboard';
 import './shifts';
+import './transit';
