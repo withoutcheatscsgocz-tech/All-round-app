@@ -104,17 +104,8 @@ export function TransitCard() {
   const stops = useLiveQuery(() => db.favStops.orderBy('order').limit(1).toArray(), [], []);
   const routes = useLiveQuery(() => db.savedRoutes.count(), [], 0);
 
-  if (stops.length === 0 && routes === 0) {
-    return (
-      <Card>
-        <div className="flex items-center justify-between">
-          <h3 className="font-semibold">🚌 {t('transit.title')}</h3>
-          <Link to="/transit" className="text-sm text-[var(--color-accent)]">{t('common.open')}</Link>
-        </div>
-        <p className="mt-1 text-sm text-[var(--color-muted)]">{t('transit.noStops')}</p>
-      </Card>
-    );
-  }
+  // Dokud není co ukázat, karta na dashboard nepatří.
+  if (stops.length === 0 && routes === 0) return null;
 
   return (
     <div>

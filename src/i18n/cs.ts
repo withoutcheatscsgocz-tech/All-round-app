@@ -430,6 +430,18 @@ export const cs = {
     dayDetail: 'Co tě čeká',
     legend: 'Vidíš tu šichty, události i úkoly s termínem pohromadě.',
   },
+  start: {
+    title: 'Začni tady',
+    hint: 'Čím víc si nastavíš, tím užitečnější tahle obrazovka bude.',
+    shifts: 'Zapiš si šichty',
+    shiftsHint: 'Uvidíš odpracované hodiny i kolik z toho bude',
+    transit: 'Přidej zastávku',
+    transitHint: 'Živá odjezdová tabule a kdy vyjet do práce',
+    weather: 'Vyber si město',
+    weatherHint: 'Počasí na dnes i na týden',
+    recipes: 'Přidej recept',
+    recipesHint: 'Nebo si nějaký natáhni z webu',
+  },
   settings: {
     title: 'Nastavení',
     language: 'Jazyk',

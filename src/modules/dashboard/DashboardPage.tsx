@@ -1,7 +1,7 @@
 import { PageHeader } from '../../app/Layout';
 import { getModules } from '../registry';
 import { useI18n } from '../../i18n';
-import { EmptyState } from '../../components/ui';
+import { GettingStarted } from './GettingStarted';
 
 function greeting(lang: 'cs' | 'en'): string {
   const h = new Date().getHours();
@@ -16,7 +16,7 @@ function greeting(lang: 'cs' | 'en'): string {
 }
 
 export function DashboardPage() {
-  const { t, lang } = useI18n();
+  const { lang } = useI18n();
   const cards = getModules().filter((m) => m.DashboardCard);
 
   const dateLabel = new Intl.DateTimeFormat(lang === 'cs' ? 'cs-CZ' : 'en-GB', {
@@ -30,16 +30,16 @@ export function DashboardPage() {
       <PageHeader title={greeting(lang)} />
       <p className="-mt-2 mb-6 text-sm text-[var(--color-muted)] first-letter:uppercase">{dateLabel}</p>
 
-      {cards.length === 0 ? (
-        <EmptyState title={t('app.tagline')} hint={t('common.none')} />
-      ) : (
-        <div className="space-y-4">
-          {cards.map((m) => {
-            const Card = m.DashboardCard!;
-            return <Card key={m.id} />;
-          })}
-        </div>
-      )}
+      <div className="space-y-4">
+        {cards.map((m) => {
+          const Card = m.DashboardCard!;
+          return <Card key={m.id} />;
+        })}
+      </div>
+
+      <div className="mt-6">
+        <GettingStarted />
+      </div>
     </>
   );
 }

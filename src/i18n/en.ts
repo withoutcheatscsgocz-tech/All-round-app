@@ -433,6 +433,18 @@ export const en: DeepPartial<typeof cs> = {
     dayDetail: "What's on",
     legend: 'Shifts, events and tasks with a due date, all in one place.',
   },
+  start: {
+    title: 'Start here',
+    hint: 'The more you set up, the more useful this screen gets.',
+    shifts: 'Log your shifts',
+    shiftsHint: 'See your hours and what they add up to',
+    transit: 'Add a stop',
+    transitHint: 'Live departures and when to leave for work',
+    weather: 'Pick your city',
+    weatherHint: 'Weather for today and the week',
+    recipes: 'Add a recipe',
+    recipesHint: 'Or pull one in from the web',
+  },
   settings: {
     title: 'Settings',
     language: 'Language',

@@ -49,6 +49,12 @@ patří do samostatných souborů s testy, ne do komponent.
 `/opt/pw-browsers/`). Spouští se proti `npm run preview` na
 `http://127.0.0.1:4173/All-round-app/`.
 
+- `npm run smoke` — hlavní průchod: projde všechny obrazovky, ověří scénář
+  napříč moduly a spadne při jakékoli chybě v konzoli. Přepínače `--dark`
+  a `en` projdou tmavý režim a angličtinu.
+- `scripts/offline-test.mjs` — ověří, že se appka načte i bez sítě.
+- Ostatní skripty jsou průchody jednotlivými moduly.
+
 Dvě věci, o které se člověk v tomhle kontejneru spolehlivě praští:
 
 - **Prohlížeč nesmí ven.** Agent proxy resetuje spojení navazovaná
@@ -57,3 +63,14 @@ Dvě věci, o které se člověk v tomhle kontejneru spolehlivě praští:
   fixtures se skutečnými odpověďmi (`src/modules/*/__fixtures__/`).
 - **Service worker odchytí fetch dřív než `page.route()`.** Kontext se musí
   vytvořit s `serviceWorkers: 'block'`, jinak interception nic nezachytí.
+  Výjimka je `offline-test.mjs`, kde jde právě o něj.
+- **Playwright zkouší routy od naposledy přidané.** Obecnější glob
+  registrovaný později přebije ten konkrétnější
+  (`**api.open-meteo.com/**` zachytí i `geocoding-api.open-meteo.com`).
+
+## Časté pasti
+
+- **Dexie umí `orderBy` jen na indexovaném klíči.** Řazení podle
+  neindexovaného pole spadne až v prohlížeči na `SchemaError` a shodí celou
+  obrazovku. `src/db/db.test.ts` proto projde všechna řazení a dotazy, které
+  moduly opravdu používají — při přidání nového dotazu ho tam doplň.

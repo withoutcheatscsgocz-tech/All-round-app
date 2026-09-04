@@ -17,9 +17,10 @@ npm run dev       # http://127.0.0.1:5173
 Další příkazy:
 
 ```bash
-npm run test      # testy výpočtů (mzdy, svátky, přepočty)
+npm run test      # testy výpočtů (mzdy, svátky, přepočty, parsování)
 npm run build     # produkční build do dist/
 npm run preview   # náhled produkčního buildu
+npm run smoke     # projde všechny obrazovky v prohlížeči (po npm run preview)
 ```
 
 ## Nasazení na GitHub Pages
@@ -92,6 +93,21 @@ JavaScript origin.
 
 Přehrávání jde vždy přes oficiální přehrávač YouTube — vlastní audio-only
 přehrávač ani stahování jejich podmínky nedovolují.
+
+## Co v ní je
+
+| Modul | Co dělá |
+|---|---|
+| **Dnes** | dnešní šichta, kdy vyjet do práce, počasí, jídlo, úkoly, co dokoukat |
+| **Šichty** | typy směn, opakující se rotace, měsíční kalendář, hodiny a mzda s příplatky, export .ics |
+| **Spoje** | vlaky, autobusy a MHD po celé ČR, odjezdové tabule, uložené trasy |
+| **Recepty** | vlastní recepty, přepočet porcí, nákupní seznam, plán jídel, import z webu |
+| **Hudba** | vlastní MP3 offline, česká rádia, Spotify, YouTube |
+| **Filmy** | watchlist, kde titul v ČR běží, odškrtávání dílů seriálů |
+| **Poznámky** | poznámky a úkoly s termínem |
+| **Výdaje** | výdaje po kategoriích, rozpočty, porovnání s výdělkem ze šicht |
+| **Počasí** | teď, po hodinách a na týden |
+| **Kalendář** | šichty, události i úkoly pohromadě, export .ics |
 
 ## Co appka umí a co ne
 
