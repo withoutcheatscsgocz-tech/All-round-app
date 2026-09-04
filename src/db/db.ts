@@ -44,7 +44,7 @@ export class AllRoundDB extends Dexie {
       watchProgress: '++id, itemId, [itemId+season+episode]',
       favStops: '++id, &stopId, order',
       savedRoutes: '++id, name, isCommute',
-      notes: '++id, isTask, done, due, *tags',
+      notes: '++id, isTask, done, due, updatedAt, *tags',
       expenses: '++id, date, category',
       budgets: '++id, &month',
       events: '++id, date',
